@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -15,6 +15,8 @@ export default function Header() {
     // useContext to get the context values;
     const getData = useSelector((state) => state.cartReducer.carts);
     console.log(getData)
+    const [price, setPrice] = useState(0);
+
     const [anchorEl, setAnchorEl] = useState(null);
     const dispatch = useDispatch();
 
@@ -29,6 +31,16 @@ export default function Header() {
     const deleteFromCart = (id) =>{
         dispatch(REMOVE(id));
     }
+    const total = () => {
+        let price = 0;
+        getData.map((element,key) => {
+            price = element.price + price;
+        })
+        setPrice(price);
+      }
+      useEffect(()=>{
+        total();
+      },[total])
 
     return (
         <>
@@ -95,7 +107,7 @@ export default function Header() {
                                                 )
                                             })
                                         }
-                                        <p className='text-center'>Total : Rs. 300</p>
+                                        <p className='text-center'>Total : Rs.  { price }</p>
                                     </tbody>
                                 </Table>
                             </div> :

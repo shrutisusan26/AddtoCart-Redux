@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { REMOVE } from '../redux/actions/action';
+import { REMOVE,ADD,REMOVE_ITEM } from '../redux/actions/action';
 
 function CardsDetails() {
   const [data, setData] = useState([]);
@@ -18,12 +18,22 @@ function CardsDetails() {
   }
   useEffect(() => {
     compare();
-  }, [id]);
+  }, [id,getData]);
+  
   const dispatch = useDispatch();
   const deleteFromCart = (id) =>{
     dispatch(REMOVE(id));
     history("/");
   }
+  const send = (element) => {
+    dispatch(ADD(element));
+  }
+
+  const rem_item = (element) => {
+    dispatch(REMOVE_ITEM(element));
+  }
+
+ 
   return (
     <div className='container mt-2'>
       <h2 className='text-center'>Items Details Page </h2>
@@ -45,7 +55,12 @@ function CardsDetails() {
                         <p> <strong> Price </strong> : Rs. {element.price} </p>
                         <p> <strong> Dishes </strong> : {element.address} </p>
                         <p> <strong> Total </strong> : 300 </p>
+                        <div className='mt-5 d-flex justify-content-between align-items-center' style={{width:100, cursor: "pointer", background: "#ddd", color: "#111"}}> 
+                          <span style={{fontSize: 24}} onClick={()=> rem_item(element)} > - </span>
+                          <span style={{fontSize: 22}}> {element.qnty} </span>
+                          <span style={{fontSize: 24}} onClick={()=> send(element)} > + </span>
 
+                        </div>
                       </td>
                       <td>
 
