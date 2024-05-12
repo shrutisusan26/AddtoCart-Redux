@@ -34,7 +34,7 @@ export default function Header() {
     const total = () => {
         let price = 0;
         getData.map((element,key) => {
-            price = element.price + price;
+            price = element.price * element.qnty + price;
         })
         setPrice(price);
       }

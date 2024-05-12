@@ -54,9 +54,9 @@ function CardsDetails() {
                         <p> <strong> Restaurant </strong> : {element.rname} </p>
                         <p> <strong> Price </strong> : Rs. {element.price} </p>
                         <p> <strong> Dishes </strong> : {element.address} </p>
-                        <p> <strong> Total </strong> : 300 </p>
+                        <p> <strong> Total </strong> : {element.price * element.qnty} </p>
                         <div className='mt-5 d-flex justify-content-between align-items-center' style={{width:100, cursor: "pointer", background: "#ddd", color: "#111"}}> 
-                          <span style={{fontSize: 24}} onClick={()=> rem_item(element)} > - </span>
+                          <span style={{fontSize: 24}} onClick={element.qnty<=1? ()=> deleteFromCart(element.id) : ()=> rem_item(element)} > - </span>
                           <span style={{fontSize: 22}}> {element.qnty} </span>
                           <span style={{fontSize: 24}} onClick={()=> send(element)} > + </span>
 
