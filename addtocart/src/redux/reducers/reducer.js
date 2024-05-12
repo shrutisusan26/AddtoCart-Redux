@@ -35,7 +35,7 @@ export const cartReducer = (state = INIT_STATE, action ) =>{
             }
         case 'REMOVE_IDV_FROM_CART':
             const iIndex = state.carts.findIndex((item) => item.id === action.payload.id);
-            if(state.carts[iIndex].qnty >= 1){
+            if(state.carts[iIndex].qnty > 1){
                 const updatedCarts = state.carts.map((element, key) =>{
                     if(key === iIndex){
                         return { ...element, qnty: element.qnty - 1};
@@ -43,6 +43,15 @@ export const cartReducer = (state = INIT_STATE, action ) =>{
                     return element;
                 });
                 return { ...state, carts: updatedCarts};
+            }
+            else if (state.carts[iIndex].qnty === 1){
+                const data = state.carts.filter((e)=>{
+                    return e.id !== action.payload.id;
+                })
+                return {
+                    ...state,
+                    carts : data
+                }
             }
         default:
             return state;
