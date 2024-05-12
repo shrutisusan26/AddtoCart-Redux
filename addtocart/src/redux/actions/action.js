@@ -4,10 +4,10 @@ export const ADD = (item) =>{
         payload: item
     };
 }
-
-export const REMOVE = (item) =>{
+// remove items from card
+export const REMOVE = (id) =>{
     return {
         type: "REMOVE_FROM_CART",
-        payload: item
+        payload: id
     }
 }

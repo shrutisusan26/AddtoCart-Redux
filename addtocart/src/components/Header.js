@@ -6,9 +6,9 @@ import Badge from '@mui/material/Badge';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Table } from '@mui/material';
-
+import { REMOVE } from '../redux/actions/action';
 export default function Header() {
 
 
@@ -16,6 +16,8 @@ export default function Header() {
     const getData = useSelector((state) => state.cartReducer.carts);
     console.log(getData)
     const [anchorEl, setAnchorEl] = useState(null);
+    const dispatch = useDispatch();
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -23,6 +25,10 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const deleteFromCart = (id) =>{
+        dispatch(REMOVE(id));
+    }
 
     return (
         <>
@@ -69,24 +75,27 @@ export default function Header() {
                                                     <> 
                                                         <tr>
                                                             <td>
-                                                                 <img style={{width:"5rem" , height: "5rem"}}src={e.imgdata} alt=""/>
+                                                             <NavLink to={`/cart/${e.id}`}  onClick={handleClose}>
+                                                             <img style={{width:"5rem" , height: "5rem"}} src={e.imgdata} alt=""/>
+                                                            </NavLink>    
                                                             </td>
                                                             <td>
                                                                 <p>{e.rname}</p>
                                                                 <p>Price : Rs. {e.price}</p>
                                                                 <p>Quantity : {e.qnty}</p>
-                                                                <p style= {{color: "red", fontSize: 20, cursor:"pointer"}}><i className='fa fa-trash smalltrash'></i></p>
+                                                                <p style= {{color: "red", fontSize: 20, cursor:"pointer"} } onClick={() =>deleteFromCart(e.id)} ><i className='fa fa-trash smalltrash' ></i></p>
 
 
                                                             </td>
-                                                            <td className='mt-5' style= {{ color: "red", fontSize: 20, cursor:"pointer" , position: "relative"}}>
-                                                                    <i className='fa fa-trash largetrash'></i>
+                                                            <td className='mt-5' style= {{ color: "red", fontSize: 20, cursor:"pointer" , position: "relative"}} >
+                                                                    <i className='fa fa-trash largetrash ' onClick={() =>deleteFromCart(e.id)}></i>
                                                             </td>
                                                         </tr>
                                                     </>
                                                 )
                                             })
                                         }
+                                        <p className='text-center'>Total : Rs. 300</p>
                                     </tbody>
                                 </Table>
                             </div> :

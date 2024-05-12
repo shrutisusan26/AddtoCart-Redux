@@ -9,6 +9,14 @@ export const cartReducer = (state = INIT_STATE, action ) =>{
                 ...state, // spread operator
                 carts: [...state.carts, action.payload] 
             }
+        case 'REMOVE_FROM_CART':
+            const data = state.carts.filter((e)=>{
+                return e.id !== action.payload;
+            })
+            return {
+                ...state,
+                carts : data
+            }
         default:
             return state;
     }
