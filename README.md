@@ -1,4 +1,4 @@
-# React Add-to-Cart Application
+# Redux Based Add-to-Cart Application
 
 
 A web based application aimed to learn more about redux state management with react. 
